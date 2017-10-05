@@ -1,0 +1,29 @@
+{
+  "name": "onmeetup.com",
+  "version": "0.1.0",
+  "description": "proxy like server",
+  "private": true,
+  "author": "Wiredcraft",
+  "license": "UNLICENSED",
+  "keywords": [
+    "meetup",
+    "checkin"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "make test",
+    "start": "./node_modules/.bin/nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/paulvollmer/onmeetup.com"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "morgan": "^1.9.0",
+    "standard": "^10.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
