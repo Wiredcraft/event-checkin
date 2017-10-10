@@ -1,0 +1,39 @@
+{
+  "name": "Person",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "table": "person"
+    }
+  },
+  "mixins": {},
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "Person ID"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["staff", "speaker", "speaker-guest"],
+      "description": "Person Role"
+    },
+    "name": {
+      "type": "string",
+      "description": "Person Name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Person Email Address"
+    },
+    "guestlist": {
+      "type": "array",
+      "description": "Person Guestlist"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
