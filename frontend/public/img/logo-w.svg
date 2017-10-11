@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="250px" height="192px" viewBox="0 0 250 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>Wiredcraft logo 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Light-background">
+            <path d="M100,68 L160,68 L160,128 L100,128 L100,68 Z M160,128 L200,128 L200,188 L160,188 L160,128 Z M60,128 L100,128 L100,188 L60,188 L60,128 Z M100,8 L160,8 L160,68 L100,68 L100,8 Z M200,128 L260,128 L260,188 L200,188 L200,128 Z M0,68 L60,68 L60,128 L0,128 L0,68 Z M0,128 L60,128 L60,188 L0,128 Z M100,128 L160,128 L160,188 L100,128 Z M0,8 L60,8 L60,68 L0,68 L0,8 Z M200,68 L260,68 L260,128 L200,128 L200,68 Z M200,8 L260,8 L260,68 L200,68 L200,8 Z" id="W" fill="#E32929"></path>
+            <g id="Shadows" transform="translate(60.000000, 128.000000)" fill-opacity="0.1" fill="#000000">
+                <path d="M0,0 L40,60 L0,60 L0,0 Z" id="Rectangle-1"></path>
+                <path d="M100,0 L140,60 L100,60 L100,0 Z" id="Rectangle-1"></path>
+            </g>
+        </g>
+    </g>
+</svg>
