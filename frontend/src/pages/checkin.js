@@ -7,6 +7,7 @@ import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Avatar from 'material-ui/Avatar';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -56,6 +57,7 @@ class Checkin extends Component {
   }
 
   render() {
+    const classes = this.props.classes;
     let self = this
     console.log('RENDER', this.state);
     var list = (
@@ -88,10 +90,10 @@ class Checkin extends Component {
           return (
             <ListItem key={i}>
               <Avatar alt={item.member.name} src={avatarURL} style={{width: 64, height: 64}}/>
-              <ListItemText primary={item.member.name /*+ ' id: ' + item.member.id*/ } />
-              <ListItemText primary={guests} />
+              <ListItemText primary={item.member.name} />
               <ListItemText primary={role} />
-              <ListItemText primary={item.response} />
+              <ListItemText primary={item.response}/>
+              <ListItemText primary={guests} />
 
               <ListItemSecondaryAction>
                 <FormGroup>
@@ -111,6 +113,7 @@ class Checkin extends Component {
 
                             let tmp = self.state.checkedIn
                             tmp[item.member.id] = checked
+
                             self.setState({ checkedIn: tmp })
                           }
                         }
@@ -129,17 +132,28 @@ class Checkin extends Component {
       </List>
     )
 
-    const { classes } = this.props;
+    let checkedInCounter = 0
+    for (var i in this.state.checkedIn) {
+      if (this.state.checkedIn.hasOwnProperty(i)) {
+        console.log(this.state.checkedIn[i]);
+        if (this.state.checkedIn[i] === true) {
+          checkedInCounter++
+        }
+      }
+    }
     return (
       <Grid container spacing={24} justify='center'>
         <Grid item xs={11} >
           <Paper className={classes.root} elevation={4}>
 
+            <Typography type="headline" component="h2" style={{float: 'right'}}>
+              Total Checked In: {checkedInCounter}
+            </Typography>
+
             <Input
               placeholder="search meetup.com member here..."
               className={classes.input}
               fullWidth
-              
               onChange={this.filterList}
             />
             {list}
