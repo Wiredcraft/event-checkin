@@ -25,6 +25,10 @@
     "eventId": {
       "type": "string",
       "description": "..."
+    },
+    "memberId": {
+      "type": "string",
+      "description": "..."
     }
   },
   "validations": [],
