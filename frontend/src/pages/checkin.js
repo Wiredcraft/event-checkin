@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Avatar from 'material-ui/Avatar';
@@ -61,7 +61,8 @@ class Checkin extends Component {
     let self = this
     console.log('RENDER', this.state);
     var list = (
-      <List>
+      <Table>
+        <TableBody>
       {
         this.state.filteredNames.map(function(item, i) {
           // console.log('-->', item);
@@ -84,18 +85,33 @@ class Checkin extends Component {
 
           // if the response is 'no', the member will not come to the meetup.
           if (item.response === 'no') {
-            return ''
+            return ' '
           }
 
           return (
-            <ListItem key={i}>
-              <Avatar alt={item.member.name} src={avatarURL} style={{width: 64, height: 64}}/>
-              <ListItemText primary={item.member.name} />
-              <ListItemText primary={role} />
-              <ListItemText primary={item.response}/>
-              <ListItemText primary={guests} />
+            <TableRow key={i}>
 
-              <ListItemSecondaryAction>
+              <TableCell style={{padding: '0'}}>
+                <Avatar alt={item.member.name} src={avatarURL} style={{width: 64, height: 64}}/>
+              </TableCell>
+
+              <TableCell style={{padding: '0'}}>
+                {item.member.name}
+              </TableCell>
+
+              <TableCell>
+                {role}
+              </TableCell>
+
+              <TableCell>
+                {item.response}
+              </TableCell>
+              
+              <TableCell>
+                {guests}
+              </TableCell>
+
+              <TableCell>
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -122,20 +138,21 @@ class Checkin extends Component {
                     label="Checkin"
                   />
                 </FormGroup>
-              </ListItemSecondaryAction>
+              </TableCell>
 
-            </ListItem>
+            </TableRow>
           )
 
         })
        }
-      </List>
+        </TableBody>
+      </Table>
     )
 
     let checkedInCounter = 0
     for (var i in this.state.checkedIn) {
       if (this.state.checkedIn.hasOwnProperty(i)) {
-        console.log(this.state.checkedIn[i]);
+        // console.log(this.state.checkedIn[i]);
         if (this.state.checkedIn[i] === true) {
           checkedInCounter++
         }
@@ -155,7 +172,9 @@ class Checkin extends Component {
               className={classes.input}
               fullWidth
               onChange={this.filterList}
+              style={{marginBottom: '2em'}}
             />
+
             {list}
 
           </Paper>
