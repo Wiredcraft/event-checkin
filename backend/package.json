@@ -1,0 +1,70 @@
+{
+  "name": "event-checkin",
+  "description": "Event Checkin Service",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Wiredcraft",
+    "email": "info@wiredcraft.com",
+    "url": "https://wiredcraft.com"
+  },
+  "contributors": [
+    "Paul Vollmer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wiredcraft/event-checkin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wiredcraft/event-checkin/issues"
+  },
+  "homepage": "https://github.com/Wiredcraft/event-checkin",
+  "main": "server/server.js",
+  "scripts": {
+    "lint": "make lint",
+    "test": "make test",
+    "test-cov": "make test-cov",
+    "test-coveralls": "make test-coveralls",
+    "start": "make start",
+    "start-dev": "make start-dev",
+    "start-staging": "make start-staging"
+  },
+  "nodemonConfig": {
+    "watch": ["server/*", "package.json"]
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "bunyan": "^1.8.12",
+    "bunyan-debug-stream": "^1.0.8",
+    "bunyan-logger": "^0.1.1",
+    "debug": "^2.6.8",
+    "env-var": "^2.4.3",
+    "express-bunyan-logger": "^1.3.2",
+    "helmet": "^3.8.1",
+    "lodash.merge": "^4.6.0",
+    "loopback": "^3.9.0",
+    "loopback-boot": "^2.26.0",
+    "loopback-component-explorer": "^4.0.0",
+    "loopback-component-visualizer": "^1.2.0",
+    "loopback-connector-mysql": "^4.1.0",
+    "loopback-connector": "^4.2.2",
+    "loopback-datasource-juggler": "^3.9.3",
+    "loopback-ds-timestamp-mixin": "^3.4.1",
+    "loopback-extended-lib": "^0.4.1",
+    "serve-favicon": "^2.4.3",
+    "strong-error-handler": "^2.2.0",
+    "strong-remoting": "^3.4.0",
+    "syslog-bunyan-logger": "^1.0.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "eslint": "^4.4.0",
+    "eslint-config-wcl-backend": "^0.1.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
+  }
+}

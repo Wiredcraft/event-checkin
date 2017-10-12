@@ -1,0 +1,38 @@
+{
+  "name": "Checkin",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "table": "checkin"
+    }
+  },
+  "mixins": {},
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "RSVP ID"
+    },
+    "date": {
+      "type": "date",
+      "description": "checkin date"
+    },
+    "urlName": {
+      "type": "string",
+      "description": "..."
+    },
+    "eventId": {
+      "type": "string",
+      "description": "..."
+    },
+    "memberId": {
+      "type": "string",
+      "description": "..."
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Event",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "table": "event"
+    }
+  },
+  "mixins": {},
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "Event ID"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
