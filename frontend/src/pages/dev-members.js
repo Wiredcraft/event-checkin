@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import Typography from 'material-ui/Typography';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
-import { FormControlLabel, FormGroup } from 'material-ui/Form';
-import Switch from 'material-ui/Switch';
-import Avatar from 'material-ui/Avatar';
+import React, { Component } from 'react'
+import Typography from 'material-ui/Typography'
+import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List'
+import { FormControlLabel, FormGroup } from 'material-ui/Form'
+import Switch from 'material-ui/Switch'
+import Avatar from 'material-ui/Avatar'
 
 class Dev extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       events: null,
@@ -16,7 +16,7 @@ class Dev extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     let self = this
     fetch('/api/events').then(res => {
       return res.json()
@@ -28,13 +28,12 @@ class Dev extends Component {
         return res.json()
       }).then(d2 => {
         // console.log(d2);
-          self.setState({rsvps: d2})
+        self.setState({rsvps: d2})
       })
-
     })
   }
 
-  render() {
+  render () {
     let list
     if (this.state.rsvps !== null) {
       list = this.state.rsvps.map((item, i) => {
@@ -47,7 +46,7 @@ class Dev extends Component {
 
         let guests = ''
         if (item.guests !== 0) {
-          guests = '+'+item.guests
+          guests = '+' + item.guests
         }
 
         let role = ''
@@ -62,7 +61,7 @@ class Dev extends Component {
 
         return (
           <ListItem key={i}>
-            <Avatar alt={item.member.name} src={avatarURL} style={{width: 64, height: 64}}/>
+            <Avatar alt={item.member.name} src={avatarURL} style={{width: 64, height: 64}} />
             <ListItemText primary={item.member.name + ' id: ' + item.member.id} />
             <ListItemText primary={guests} />
             <ListItemText primary={role} />
@@ -77,7 +76,7 @@ class Dev extends Component {
                       onChange={(event, checked) => this.setState({ checkedA: checked })}
                     />
                   }
-                  label="Check-In"
+                  label='Check-In'
                 />
               </FormGroup>
 
@@ -90,7 +89,7 @@ class Dev extends Component {
     return (
       <div>
 
-        <Typography type="headline" component="h2">
+        <Typography type='headline' component='h2'>
           RSVPS {this.state.eventName} <code>id: {this.state.eventId}</code>
         </Typography>
 
@@ -109,4 +108,4 @@ class Dev extends Component {
   }
 }
 
-export default Dev;
+export default Dev
