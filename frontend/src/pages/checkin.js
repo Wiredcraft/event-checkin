@@ -121,11 +121,26 @@ class Checkin extends Component {
                             console.log('check', item.member.id, checked);
 
                             // send checkin data to the API
-                            // fetch(`/api/checkin`).then(res => {
-                            //   return res.json()
-                            // }).then(d => {
-                            //   console.log('checkin response', d);
-                            // })
+                            let postBody = JSON.stringify({
+                              date: new Date(),
+                              urlName: self.props.match.params.urlName,
+                              eventId: self.props.match.params.eventId,
+                              memberId: item.member.id + ''
+                            })
+                            console.log('postBody', postBody);
+                            let postOpt = {
+                              method: 'post',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                              },
+                              body: postBody
+                            }
+                            fetch(`/api/checkins`, postOpt).then(res => {
+                              return res.json()
+                            }).then(d => {
+                              console.log('checkin response', d);
+                            })
 
                             let tmp = self.state.checkedIn
                             tmp[item.member.id] = checked
