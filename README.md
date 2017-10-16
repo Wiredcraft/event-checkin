@@ -12,6 +12,7 @@ node deploy/setup.js
 
 # start the backend server
 cd backend
+export MEETUP_API_TOKEN=yourtokenhere
 yarn install
 make start
 
