@@ -29,20 +29,45 @@ class Checkin extends Component {
   }
 
   componentDidMount () {
+    let self = this
+
     // console.log('urlName', this.props.match.params.urlName);
     // console.log('eventId', this.props.match.params.eventId);
 
-    let self = this
+    // get the rsvps of the meetup event
     fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}/rsvps`).then(res => {
       return res.json()
     }).then(d => {
+
       let tmpCheckedIn = {}
       for (var i = 0; i < d.length; i++) {
         tmpCheckedIn[d[i].member.id] = false
       }
-      // console.log('tmpCheckedIn', tmpCheckedIn)
-      self.setState({rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
+
+      // get the already checked in person
+      const filter = encodeURIComponent(JSON.stringify({
+        where: {
+          urlName: this.props.match.params.urlName,
+          eventId: this.props.match.params.eventId
+        }
+      }))
+      fetch(`/api/Checkins?filter=${filter}`).then(res => {
+        return res.json()
+      }).then(d2 => {
+        // console.log('DATA', d);
+        for (var i = 0; i < d2.length; i++) {
+          let memberId = parseInt(d2[i].memberId)
+          console.log('-->', memberId, [i]);
+          tmpCheckedIn[memberId] = true
+
+        }
+
+        // console.log('tmpCheckedIn', tmpCheckedIn)
+        self.setState({rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
+      })
+
     })
+
   }
 
   filterList (event) {
