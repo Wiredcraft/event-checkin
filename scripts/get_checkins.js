@@ -5,31 +5,40 @@
 const querystring = require("querystring");
 const request = require('request');
 
-if (process.argv.length !== 4) {
-  console.log('missing arguments\n');
+let url = 'http://localhost:9000/api/Checkins'
+
+function usage() {
   console.log('Usage: urlName eventId');
-  process.exit(1)
 }
 
-const urlName = process.argv[2]
-const eventId = process.argv[3]
-// console.log("get checkins for", urlName, eventId);
+console.log(process.argv.length)
 
-const filter = querystring.escape(JSON.stringify({
-  where: {
-    urlName: urlName,
-    eventId: eventId
-  }
-}))
-
-let url = 'http://localhost:9000/api/Checkins?filter='+filter
+switch (process.argv.length) {
+  case 2:
+  break
+  case 4:
+    const urlName = process.argv[2]
+    const eventId = process.argv[3]
+    // get checkins for urlName and eventId
+    const filter = querystring.escape(JSON.stringify({
+      where: {
+        urlName: urlName,
+        eventId: eventId
+      }
+    }))
+    url += '?filter='+filter
+    break;
+  default:
+  console.log('missing arguments\n');
+    usage()
+    process.exit(1)
+}
 
 request(url, function (err, res, body) {
   if (err) {
     console.log(err);
     process.exit(1)
   }
-
   if (res && res.statusCode) {
     let data = JSON.parse(body)
     // console.log('data total:', data.length);
