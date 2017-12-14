@@ -1,6 +1,6 @@
 DEBUG = DEBUG=api:*
 BIN = ./node_modules/.bin
-TESTS = server/test/*.test.js
+TESTS = test/*.test.js
 MOCHA_OPTS = -b --timeout 10000 --reporter spec
 
 lint:
