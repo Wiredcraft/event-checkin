@@ -1,6 +1,6 @@
 {
-  "name": "event-checkin",
-  "description": "Event Checkin Service",
+  "name": "event-checkin-api",
+  "description": "Event Checkin RestfulAPI",
   "version": "0.0.1",
   "private": true,
   "license": "UNLICENSED",
@@ -31,7 +31,10 @@
     "start-staging": "make start-staging"
   },
   "nodemonConfig": {
-    "watch": ["server/*", "package.json"]
+    "watch": [
+      "server/*",
+      "package.json"
+    ]
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -58,9 +61,11 @@
     "syslog-bunyan-logger": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "coveralls": "^2.13.1",
     "eslint": "^4.4.0",
     "eslint-config-wcl-backend": "^0.1.1",
+    "faker": "^4.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
