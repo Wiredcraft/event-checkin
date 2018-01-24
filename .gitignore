@@ -19,3 +19,6 @@ docker
 node_modules
 frontend/coverage
 frontend/build
+
+_WIP
+data
