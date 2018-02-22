@@ -1,4 +1,5 @@
-const app = require('../backend/server/server')
+const path = require('path')
+const app = require(path.join(__dirname, '../backend/server/server'))
 const ds = app.dataSources.eventcheckin
 
 let excludedModels = []
