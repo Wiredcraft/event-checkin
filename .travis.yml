@@ -17,9 +17,9 @@ env:
 node_js:
   - "8"
 before_script:
-  - make docker
   - cd backend && yarn install
   - cd frontend && yarn install
+  - make docker
 script:
   - cd backend && make lint
   - cd frontend && npm run pretest
