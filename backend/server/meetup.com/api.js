@@ -1,9 +1,10 @@
 'use strict';
 
 const request = require('request');
+const env = require('env-var');
 const config = require('../config.env.js');
 
-let BaseURL = 'https://api.meetup.com';
+let BaseURL = env('MEETUP_API_URL', 'https://api.meetup.com').asString();
 
 exports.setBaseURL = function(url) {
   BaseURL = url;

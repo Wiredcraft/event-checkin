@@ -1,7 +1,7 @@
 {
   "name": "event-checkin-api",
   "description": "Event Checkin RestfulAPI",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
   "author": {
@@ -50,8 +50,8 @@
     "loopback-boot": "^2.26.0",
     "loopback-component-explorer": "^4.0.0",
     "loopback-component-visualizer": "^1.2.0",
-    "loopback-connector-mysql": "^4.1.0",
     "loopback-connector": "^4.2.2",
+    "loopback-connector-mysql": "^4.1.0",
     "loopback-datasource-juggler": "^3.9.3",
     "loopback-ds-timestamp-mixin": "^3.4.1",
     "loopback-extended-lib": "^0.4.1",

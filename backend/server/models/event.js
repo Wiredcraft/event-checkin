@@ -10,7 +10,7 @@ module.exports = (Event) => {
     Event.find = function(filter, accessToken, cb) {
       getEvents(function(err, response, body) {
         if (err) {
-          cb(null, { error: err });
+          return cb(null, { error: err });
         }
         if (response && response.statusCode === 200) {
           cb(null, JSON.parse(body));
