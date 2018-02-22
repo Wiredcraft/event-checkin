@@ -17,9 +17,9 @@ env:
 node_js:
   - "8"
 before_script:
-  - cd backend && yarn install
-  - cd frontend && yarn install
-  - make docker
+  - cd $TRAVIS_BUILD_DIR/backend && yarn install
+  - cd $TRAVIS_BUILD_DIR/frontend && yarn install
+  - cd $TRAVIS_BUILD_DIR && make docker
 script:
-  - cd backend && make lint
-  - cd frontend && npm run pretest
+  - cd $TRAVIS_BUILD_DIR/backend && make test
+  - cd $TRAVIS_BUILD_DIR/frontend && npm run pretest
