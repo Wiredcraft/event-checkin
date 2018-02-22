@@ -21,6 +21,7 @@ class Checkin extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      meetup: {},
       rsvps: [],
       filteredNames: [],
       checkedIn: {}
@@ -34,38 +35,41 @@ class Checkin extends Component {
     // console.log('urlName', this.props.match.params.urlName);
     // console.log('eventId', this.props.match.params.eventId);
 
-    // get the rsvps of the meetup event
-    fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}/rsvps`).then(res => {
+    fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}`).then(res => {
       return res.json()
-    }).then(d => {
+    }).then(data => {
+      console.log(data);
 
-      let tmpCheckedIn = {}
-      for (var i = 0; i < d.length; i++) {
-        tmpCheckedIn[d[i].member.id] = false
-      }
-
-      // get the already checked in person
-      const filter = encodeURIComponent(JSON.stringify({
-        where: {
-          urlName: this.props.match.params.urlName,
-          eventId: this.props.match.params.eventId
-        }
-      }))
-      fetch(`/api/Checkins?filter=${filter}`).then(res => {
+      // get the rsvps of the meetup event
+      fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}/rsvps`).then(res => {
         return res.json()
-      }).then(d2 => {
-        // console.log('DATA', d);
-        for (var i = 0; i < d2.length; i++) {
-          let memberId = parseInt(d2[i].memberId)
-          console.log('-->', memberId, [i]);
-          tmpCheckedIn[memberId] = true
-
+      }).then(d => {
+        let tmpCheckedIn = {}
+        for (var i = 0; i < d.length; i++) {
+          tmpCheckedIn[d[i].member.id] = false
         }
 
-        // console.log('tmpCheckedIn', tmpCheckedIn)
-        self.setState({rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
-      })
+        // get the already checked in person
+        const filter = encodeURIComponent(JSON.stringify({
+          where: {
+            urlName: this.props.match.params.urlName,
+            eventId: this.props.match.params.eventId
+          }
+        }))
+        fetch(`/api/Checkins?filter=${filter}`).then(res => {
+          return res.json()
+        }).then(d2 => {
+          // console.log('DATA', d);
+          for (var i = 0; i < d2.length; i++) {
+            let memberId = parseInt(d2[i].memberId)
+            // console.log('-->', memberId, [i])
+            tmpCheckedIn[memberId] = true
+          }
 
+          // console.log('tmpCheckedIn', tmpCheckedIn)
+          self.setState({meetup: data, rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
+        })
+      })
     })
 
   }
@@ -84,7 +88,7 @@ class Checkin extends Component {
   render () {
     const classes = this.props.classes
     let self = this
-    console.log('RENDER', this.state)
+    // console.log('RENDER', this.state)
     var list = (
       <Table>
         <TableBody>
@@ -200,9 +204,17 @@ class Checkin extends Component {
     return (
       <Grid container spacing={24} justify='center'>
         <Grid item xs={11} >
+
+          <Typography type='headline' component='h2'>
+            {this.state.meetup.name}
+            <span style={{float: 'right'}}>
+              RSVPs: {this.state.meetup.yes_rsvp_count} Waitlist: {this.state.meetup.waitlist_count}
+            </span>
+          </Typography>
+
           <Paper className={classes.root} elevation={4}>
 
-            <Typography type='headline' component='h2' style={{float: 'right'}}>
+            <Typography type='headline' style={{float: 'right'}}>
               Total Checked In: {checkedInCounter}
             </Typography>
 

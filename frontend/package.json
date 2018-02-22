@@ -12,7 +12,9 @@
   "scripts": {
     "start": "./node_modules/.bin/react-scripts start",
     "build": "./node_modules/.bin/react-scripts build",
-    "pretest": "./node_modules/.bin/standard --global fetch",
+    "lint": "./node_modules/.bin/standard --global fetch",
+    "lint-fix": "./node_modules/.bin/standard --global fetch --fix",
+    "pretest": "npm run lint",
     "test": "./node_modules/.bin/react-scripts test --env=jsdom",
     "eject": "./node_modules/.bin/react-scripts eject"
   },
