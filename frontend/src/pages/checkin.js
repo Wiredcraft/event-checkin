@@ -8,6 +8,7 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
+import { stringNormalizer } from '../utils'
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -78,8 +79,8 @@ class Checkin extends Component {
     var updatedList = this.state.rsvps
     updatedList = updatedList.filter(function (item) {
       // console.log(item);
-      return item.member.name.toLowerCase().search(
-        event.target.value.toLowerCase()) !== -1
+      return stringNormalizer(item.member.name.toLowerCase()).search(
+        stringNormalizer(event.target.value.toLowerCase())) !== -1
     })
     // console.log('filterList', event.target.value, updatedList);
     this.setState({filteredNames: updatedList})
