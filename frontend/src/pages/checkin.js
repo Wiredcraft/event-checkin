@@ -8,6 +8,7 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
+import { stringNormalizer } from '../utils'
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -21,6 +22,7 @@ class Checkin extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      meetup: {},
       rsvps: [],
       filteredNames: [],
       checkedIn: {}
@@ -29,28 +31,56 @@ class Checkin extends Component {
   }
 
   componentDidMount () {
+    let self = this
+
     // console.log('urlName', this.props.match.params.urlName);
     // console.log('eventId', this.props.match.params.eventId);
 
-    let self = this
-    fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}/rsvps`).then(res => {
+    fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}`).then(res => {
       return res.json()
-    }).then(d => {
-      let tmpCheckedIn = {}
-      for (var i = 0; i < d.length; i++) {
-        tmpCheckedIn[d[i].member.id] = false
-      }
-      // console.log('tmpCheckedIn', tmpCheckedIn)
-      self.setState({rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
+    }).then(data => {
+      console.log(data);
+
+      // get the rsvps of the meetup event
+      fetch(`/api/events/${this.props.match.params.urlName}/${this.props.match.params.eventId}/rsvps`).then(res => {
+        return res.json()
+      }).then(d => {
+        let tmpCheckedIn = {}
+        for (var i = 0; i < d.length; i++) {
+          tmpCheckedIn[d[i].member.id] = false
+        }
+
+        // get the already checked in person
+        const filter = encodeURIComponent(JSON.stringify({
+          where: {
+            urlName: this.props.match.params.urlName,
+            eventId: this.props.match.params.eventId
+          }
+        }))
+        fetch(`/api/Checkins?filter=${filter}`).then(res => {
+          return res.json()
+        }).then(d2 => {
+          // console.log('DATA', d);
+          for (var i = 0; i < d2.length; i++) {
+            let memberId = parseInt(d2[i].memberId)
+            // console.log('-->', memberId, [i])
+            tmpCheckedIn[memberId] = true
+          }
+
+          // console.log('tmpCheckedIn', tmpCheckedIn)
+          self.setState({meetup: data, rsvps: d, filteredNames: d, checkedIn: tmpCheckedIn})
+        })
+      })
     })
+
   }
 
   filterList (event) {
     var updatedList = this.state.rsvps
     updatedList = updatedList.filter(function (item) {
       // console.log(item);
-      return item.member.name.toLowerCase().search(
-        event.target.value.toLowerCase()) !== -1
+      return stringNormalizer(item.member.name.toLowerCase()).search(
+        stringNormalizer(event.target.value.toLowerCase())) !== -1
     })
     // console.log('filterList', event.target.value, updatedList);
     this.setState({filteredNames: updatedList})
@@ -59,7 +89,7 @@ class Checkin extends Component {
   render () {
     const classes = this.props.classes
     let self = this
-    console.log('RENDER', this.state)
+    // console.log('RENDER', this.state)
     var list = (
       <Table>
         <TableBody>
@@ -175,9 +205,17 @@ class Checkin extends Component {
     return (
       <Grid container spacing={24} justify='center'>
         <Grid item xs={11} >
+
+          <Typography type='headline' component='h2'>
+            {this.state.meetup.name}
+            <span style={{float: 'right'}}>
+              RSVPs: {this.state.meetup.yes_rsvp_count} Waitlist: {this.state.meetup.waitlist_count}
+            </span>
+          </Typography>
+
           <Paper className={classes.root} elevation={4}>
 
-            <Typography type='headline' component='h2' style={{float: 'right'}}>
+            <Typography type='headline' style={{float: 'right'}}>
               Total Checked In: {checkedInCounter}
             </Typography>
 

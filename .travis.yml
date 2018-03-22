@@ -1,0 +1,25 @@
+sudo: required
+language: node_js
+notifications:
+  email: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+services:
+  - docker
+env:
+  global:
+    - CXX=g++-4.8
+    - NODE_ENV="test"
+node_js:
+  - "8"
+before_script:
+  - cd $TRAVIS_BUILD_DIR/backend && yarn install
+  - cd $TRAVIS_BUILD_DIR/frontend && yarn install
+  - cd $TRAVIS_BUILD_DIR && make docker
+script:
+  - cd $TRAVIS_BUILD_DIR/backend && make test
+  - cd $TRAVIS_BUILD_DIR/frontend && npm run pretest

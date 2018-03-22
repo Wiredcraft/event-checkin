@@ -1,15 +1,20 @@
-version: '2'
+version: '2.1'
 services:
   mysql:
     image: mysql:5.7
-    container_name: eventcheckin.mysql
+    container_name: eventcheckin_db
     restart: always
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "5000:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
       MYSQL_PASSWORD: secret
       MYSQL_DATABASE: eventcheckin
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
