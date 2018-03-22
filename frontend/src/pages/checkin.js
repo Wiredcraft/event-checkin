@@ -5,10 +5,11 @@ import Paper from 'material-ui/Paper'
 import Input from 'material-ui/Input'
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
 import { FormControlLabel, FormGroup } from 'material-ui/Form'
-import Switch from 'material-ui/Switch'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import { stringNormalizer } from '../utils'
+
+import CheckinToggle from '../components/checkinToggle'
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -28,6 +29,7 @@ class Checkin extends Component {
       checkedIn: {}
     }
     this.filterList = this.filterList.bind(this)
+    this.updateToggleState = this.updateToggleState.bind(this)
   }
 
   componentDidMount () {
@@ -72,15 +74,16 @@ class Checkin extends Component {
         })
       })
     })
-
   }
-
+  updateToggleState (toggleState) {
+    this.setState(toggleState)
+  }
   filterList (event) {
     var updatedList = this.state.rsvps
     updatedList = updatedList.filter(function (item) {
       // console.log(item);
-      return stringNormalizer(item.member.name.toLowerCase()).search(
-        stringNormalizer(event.target.value.toLowerCase())) !== -1
+      return stringNormalizer(item.member.name).search(
+        stringNormalizer(event.target.value)) !== -1
     })
     // console.log('filterList', event.target.value, updatedList);
     this.setState({filteredNames: updatedList})
@@ -142,47 +145,14 @@ class Checkin extends Component {
               </TableCell>
 
               <TableCell>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={self.state.checkedIn[item.member.id]}
-                        onChange={(event, checked) => {
-                          console.log('check', item.member.id, checked)
-
-                            // send checkin data to the API
-                          let postBody = JSON.stringify({
-                            date: new Date(),
-                            urlName: self.props.match.params.urlName,
-                            eventId: self.props.match.params.eventId,
-                            memberId: item.member.id + ''
-                          })
-                          console.log('postBody', postBody)
-                          let postOpt = {
-                            method: 'post',
-                            headers: {
-                              'Accept': 'application/json',
-                              'Content-Type': 'application/json'
-                            },
-                            body: postBody
-                          }
-                          fetch(`/api/checkins`, postOpt).then(res => {
-                            return res.json()
-                          }).then(d => {
-                            console.log('checkin response', d)
-                          })
-
-                          let tmp = self.state.checkedIn
-                          tmp[item.member.id] = checked
-
-                          self.setState({ checkedIn: tmp })
-                        }
-                        }
-                      />
-                    }
-                    label='Checkin'
-                  />
-                </FormGroup>
+                <CheckinToggle
+                  checkinState={self.state.checkedIn}
+                  checked={self.state.checkedIn[item.member.id]}
+                  memberId={item.member.id}
+                  urlName={self.props.match.params.urlName}
+                  eventId={self.props.match.params.eventId}
+                  updateToggleState={self.updateToggleState}
+                />
               </TableCell>
 
             </TableRow>

@@ -4,7 +4,6 @@ import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-
 import { FormControlLabel, FormGroup } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Avatar from 'material-ui/Avatar'
-import stringNormalizer from '../utils'
 
 class Dev extends Component {
   constructor (props) {
