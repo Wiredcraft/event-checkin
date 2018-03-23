@@ -24,6 +24,9 @@ import store from '../utils/store'
 // https://github.com/Wiredcraft/sams-customer-support-ui/tree/master/src/containers
 import DevTool from '../utils/DevTool'
 
+// example redux connected component
+import ReduxExample from './reduxExample'
+
 const styles = theme => ({
   root: {
     marginTop: theme.spacing.unit * 3,
@@ -72,6 +75,9 @@ class Index extends Component {
               <Route path='/dev/api' component={DevApi} />
               <Route path='/dev/members' component={DevMembers} />
               <Route path='/dev/fiddle' component={DevFiddle} />
+
+              {/* Example component below, delete it! */}
+              <Route path='/redux' component={ReduxExample} />
             </div>
 
             <DevTool />
