@@ -23,7 +23,11 @@ export class Example extends Component {
     const { loading, error, data, actions } = this.props
 
     return (
-      <section>
+      <section style={{ padding: '0 40px' }}>
+        <h2>Redux Example</h2>
+
+        <h3>⚠️ Open DevTool with <kbd>ctrl</kbd> + <kbd>h</kbd> ⚠️</h3>
+
         <p>
           <span>loading: </span>
           <span><code>{JSON.stringify(loading)}</code></span>
